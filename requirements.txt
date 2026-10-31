@@ -4,7 +4,8 @@
 # After everything works, lock exact versions with:  pip freeze > requirements.lock.txt
 
 # ---------- Phase 1-2: Ingestion ----------
-dlt[bigquery]
+dbt-core==1.12.6
+dbt-bigquery==1.12.1
 requests
 pandas
 python-dotenv
