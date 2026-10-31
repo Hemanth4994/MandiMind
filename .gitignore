@@ -1,0 +1,10 @@
+.venv/
+.env
+__pycache__/
+*.json
+!package.json
+.dlt/secrets.toml
+*.pyc
+.terraform/
+*.tfstate*
+data/

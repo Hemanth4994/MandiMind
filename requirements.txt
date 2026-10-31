@@ -1,0 +1,40 @@
+# Mandi: farm decision platform (data engineering + AI engineering)
+# Install in a fresh venv:  pip install -r requirements.txt
+# Later phases are commented out. Uncomment each when we reach that phase.
+# After everything works, lock exact versions with:  pip freeze > requirements.lock.txt
+
+# ---------- Phase 1-2: Ingestion ----------
+dlt[bigquery]
+requests
+pandas
+python-dotenv
+pyyaml
+
+# ---------- Phase 3: Warehouse + transformations ----------
+google-cloud-bigquery
+db-dtypes
+dbt-bigquery
+
+# ---------- Phase 4: RAG + MCP ----------
+# langchain
+# langchain-google-genai
+# langchain-community
+# chromadb
+# sentence-transformers   # pulls in PyTorch, large download (~2 GB)
+# pypdf
+# mcp
+
+# ---------- Phase 5: Agent + evals ----------
+# langgraph
+# langsmith
+
+# ---------- Phase 6: API, quality, deploy ----------
+# fastapi
+# uvicorn[standard]
+# pytest
+# ruff
+# locust                  # load testing
+
+# ---------- Scale (later) ----------
+# pyspark                 # needs Java 17 installed
+# confluent-kafka
