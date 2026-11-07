@@ -4,15 +4,14 @@
 # After everything works, lock exact versions with:  pip freeze > requirements.lock.txt
 
 # ---------- Phase 1-2: Ingestion ----------
-dbt-core==1.12.6
-dbt-bigquery==1.12.1
+dlt[duckdb]
 requests
 pandas
 python-dotenv
 pyyaml
 
 # ---------- Phase 3: Warehouse + transformations ----------
-google-cloud-bigquery
+dbt-core==1.12.6
 db-dtypes
 dbt-bigquery
 
