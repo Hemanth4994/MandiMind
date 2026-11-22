@@ -1,8 +1,11 @@
+import os
 import dlt
 import requests
 
+
 @dlt.resource(name="daily_weather", write_disposition="merge", primary_key="date")
 def daily_weather(latitude=12.97, longitude=77.59, past_days=7):
+    fault = os.getenv("FAULT_MODE", "none")
     r = requests.get(
         "https://api.open-meteo.com/v1/forecast",
         params={
@@ -15,14 +18,21 @@ def daily_weather(latitude=12.97, longitude=77.59, past_days=7):
     )
     r.raise_for_status()
     d = r.json()["daily"]
+    today = d["time"][-1]
     for i, day in enumerate(d["time"]):
-        yield {
+        row = {
             "date": day,
             "temp_max_c": d["temperature_2m_max"][i],
             "temp_min_c": d["temperature_2m_min"][i],
             "rain_mm": d["precipitation_sum"][i],
             "location": "bengaluru",
         }
+        if day == today and fault == "spike":
+            row["temp_max_c"] = 99.0
+        if day == today and fault == "nulls":
+            row["rain_mm"] = None
+        yield row
+
 
 pipeline = dlt.pipeline(
     pipeline_name="mandimind_weather",
