@@ -1,8 +1,8 @@
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 import health
 
-mcp = FastMCP("MandiMind Health")
+mcp = MCPServer("MandiMind Health")
 
 
 @mcp.tool()
