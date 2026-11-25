@@ -1,0 +1,31 @@
+# A copy of the flow saved in Kestra (namespace mandimind), so the repo shows how the pipeline is scheduled.
+# The `volumes` line is the author's Windows path to the data/ folder (Docker Desktop's /run/desktop/mnt/host/c/... format);
+# change it to your own data folder. Kestra's clock is UTC, so the trigger sets the India timezone.
+id: mandimind_run
+namespace: mandimind
+
+tasks:
+  - id: wdir
+    type: io.kestra.plugin.core.flow.WorkingDirectory
+    tasks:
+      - id: clone
+        type: io.kestra.plugin.git.Clone
+        url: https://github.com/Hemanth4994/MandiMind
+        branch: main
+      - id: run
+        type: io.kestra.plugin.scripts.python.Commands
+        containerImage: python:3.12-slim
+        taskRunner:
+          type: io.kestra.plugin.scripts.runner.docker.Docker
+          volumes:
+            - /run/desktop/mnt/host/c/Users/heman/Desktop/MandiMind/data:/data
+        beforeCommands:
+          - pip install -r requirements-run.txt > /dev/null
+        commands:
+          - cd /data && python {{ workingDir }}/pipelines/run_all.py
+
+triggers:
+  - id: daily_7am
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "0 7 * * *"
+    timezone: Asia/Kolkata

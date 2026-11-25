@@ -22,7 +22,7 @@ dbt-bigquery
 # chromadb
 # sentence-transformers   # pulls in PyTorch, large download (~2 GB)
 # pypdf
-# mcp[cli]>=2,<3
+mcp[cli]>=2,<3
 
 # ---------- Phase 5: Agent + evals ----------
 # langgraph
